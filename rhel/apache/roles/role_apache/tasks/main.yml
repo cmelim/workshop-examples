@@ -17,7 +17,7 @@
     state: started
 
 - name: firewalld permits http service con  ansible.posix
-  ansible.posix:
+  ansible.posix.firewalld:
     service: http
     permanent: true
     state: enabled
