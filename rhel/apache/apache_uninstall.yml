@@ -1,0 +1,13 @@
+---
+- name: Apache server uninstalled
+  hosts: web
+
+  tasks:
+  - name: Remove Apache version installed
+    yum:
+      name: httpd
+      autoremove: yes
+      state: absent
+      
+
+ 
