@@ -16,7 +16,7 @@
     enabled: true
     state: started
 
-- name: firewalld permits http service
+- name: firewalld permits http service con problemas
   firewalld:
     service: http
     permanent: true
