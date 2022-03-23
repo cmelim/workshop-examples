@@ -17,7 +17,7 @@
     state: started
 
 - name: firewalld permits http service con problemas
-  firewalld:
+  ansible.posix.firewalld:
     service: http
     permanent: true
     state: enabled
