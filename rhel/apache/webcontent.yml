@@ -1,6 +1,8 @@
 ---
 - name: Deploy Apache web content
   hosts: web
-
+  
+  collections:
+    - ansible.posix
   roles:
     - role_apache
