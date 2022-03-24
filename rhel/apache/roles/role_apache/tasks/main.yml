@@ -1,46 +1,43 @@
 --- 
-collections: 
-  - 
-    name: ansible.posix
-  - 
-    name: "latest Apache version installed"
-    notify: apache-restart
-    yum: 
-      name: httpd
-      state: latest
-  - 
-    name: "latest firewalld version installed"
-    yum: 
-      name: firewalld
-      state: latest
-  - 
-    name: "firewalld enabled and running"
-    service: 
-      enabled: true
-      name: firewalld
-      state: started
-  - 
-    firewalld: 
-      immediate: true
-      permanent: true
-      service: http
-      state: enabled
-    name: "firewalld permits http service"
-  - 
-    name: "Apache enabled and running"
-    service: 
-      enabled: true
-      name: httpd
-      state: started
-  - 
-    copy: 
-      dest: /etc/httpd/conf/httpd.conf
-      src: httpd.conf
-    name: "Ensure proper Apache configuration"
-    notify: apache-restart
-  - 
-    name: "deploy index.html"
-    notify: apache-restart
-    template: 
-      dest: /var/www/html/index.html
-      src: index.html.j2
+- 
+  name: "latest Apache version installed"
+  notify: apache-restart
+  yum: 
+    name: httpd
+    state: latest
+- 
+  name: "latest firewalld version installed"
+  yum: 
+    name: firewalld
+    state: latest
+- 
+  name: "firewalld enabled and running"
+  service: 
+    enabled: true
+    name: firewalld
+    state: started
+- 
+  firewalld: 
+    immediate: true
+    permanent: true
+    service: http
+    state: enabled
+  name: "firewalld permits http service"
+- 
+  name: "Apache enabled and running"
+  service: 
+    enabled: true
+    name: httpd
+    state: started
+- 
+  copy: 
+    dest: /etc/httpd/conf/httpd.conf
+    src: httpd.conf
+  name: "Ensure proper Apache configuration"
+  notify: apache-restart
+- 
+  name: "deploy index.html"
+  notify: apache-restart
+  template: 
+    dest: /var/www/html/index.html
+    src: index.html.j2
