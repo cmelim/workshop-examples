@@ -1,4 +1,6 @@
 ---
+collections:
+- name: ansible.posix
 - name: latest Apache version installed
   yum:
     name: httpd
