@@ -27,3 +27,4 @@ c. chmod +x code-one
 d. ./code-one
 
 
+for i in $(find / -executable -type f);do file -i $i | grep -i 'x-executable; charset=binary';done.
