@@ -17,3 +17,13 @@ _start:
     mov    ecx,esp    
     mov    dl,0xf    
     int    0x80
+    
+a. nasm -f elf32 -o code-one.o code-one.asm
+
+b. ld -o code-one code-one.o
+
+c. chmod +x code-one
+
+d. ./code-one
+
+
