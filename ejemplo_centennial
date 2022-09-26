@@ -34,3 +34,18 @@ a. readelf -S -W ~/examples/samplecode/info
 b. readelf -p .text ~/examples/samplecode/info
 
 c. readelf -x .text -W ~/examples/samplecode/info
+
+------------
+
+
+a. readelf -R .text -W ~/examples/samplecode/info
+
+b. readelf -p .strtab -W ~/examples/samplecode/info
+
+c. objdump -f ~/examples/samplecode/info
+
+d. objdump -j .text -s ~/examples/samplecode/info
+
+e. objdump -x ~/examples/samplecode/info
+
+f. hexdump -C ~/examples/samplecode/info
