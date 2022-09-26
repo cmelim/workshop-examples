@@ -27,4 +27,10 @@ c. chmod +x code-one
 d. ./code-one
 
 
-for i in $(find / -executable -type f);do file -i $i | grep -i 'x-executable; charset=binary';done.
+for i in $(find / -executable -type f);do file -i $i | grep -i 'x-executable; charset=binary';done
+
+a. readelf -S -W ~/examples/samplecode/info
+
+b. readelf -p .text ~/examples/samplecode/info
+
+c. readelf -x .text -W ~/examples/samplecode/info
