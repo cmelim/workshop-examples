@@ -66,3 +66,5 @@ there:   call here\n\
 needle1: .octa 0xdeadbeef\n\
 ");
 }
+
+objdump -d ropshell | sed -n '/needle0/,/needle1/p'. 
