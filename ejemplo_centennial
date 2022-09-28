@@ -231,6 +231,10 @@ b. 94 c3; xchg eax, esp; ret
   
 make && sudo insmod ./drv.ko
 
+35.-
+
+grep ' : xchg eax, esp ; ret ' ~/ropgadget. 
+
 
 37.-
 
