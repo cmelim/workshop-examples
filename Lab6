@@ -1,0 +1,46 @@
+Exercise 2: Scanning and Scripting with hping3
+
+hping send {ip(daddr=192.168.0.7)+icmp(type=8,code=0)}.
+
+8.-   foreach i [list 5 6 7 8 9 10] {hping send "ip(daddr=192.168.0.7,ttl=$i)+icmp(type=8,code=0)"}
+
+      sudo tcpdump –i eth0 –x –vv | grep ICMP, 
+      
+9.-
+
+while 1 {
+
+set p [lindex [hping recv eth0] 0]
+
+puts "[hping getfield ip saddr $p] -> [hping getfield ip ttl $p]"
+
+}
+
+
+
+12.-
+
+ sudo hping3 -2 -p 500 192.168.0.7 -d 139 -E attack.sig
+ 
+ 16.-
+ 
+  sudo tcpdump –i eth0 –nX
+  
+17..-
+
+r sudo hping3 --scan known 192.168.0.7 -S. 
+
+18.-
+
+ sudo hping3 --scan ‘0-3000’ 192.168.0.7 –S
+ 
+ 
+ 20.-
+ 
+ sudo hping3 127.0.0.1 --listen signature --safe –icmp
+ 
+ 22.-
+ 
+ sudo hping3 127.0.0.1 --icmp -d 100 --sign signature --file /etc/passwd.
+ 
+ 
